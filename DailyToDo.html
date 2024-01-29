@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Author" content="Kyle Shanahan">
+    <title>To-Do List</title>
+    <!-- This program prompts a simple to do list with limited user functionality to write things down. In order to save the list, select the "save" option-->
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #navbar {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        #todo-list {
+            margin: 20px;
+        }
+        
+        .todo-item {
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div id="navbar">
+    <button onclick="addItem()">Add Item</button>
+    <button onclick="removeItem()">Remove Item</button>
+    <button onclick="saveAsPDF()">Save as PDF</button>
+</div>
+
+<div id="todo-list">
+    <!-- To-do list will appear here -->
+</div>
+
+<script>
+    const todoList = document.getElementById('todo-list');
+
+    function addItem() {
+        const task = prompt('Enter a new task:');
+        if (task) {
+            const listItem = document.createElement('div');
+            listItem.className = 'todo-item';
+            listItem.textContent = task;
+            todoList.appendChild(listItem);
+        }
+    }
+
+    function removeItem() {
+        const items = document.querySelectorAll('.todo-item');
+        if (items.length > 0) {
+            const lastItem = items[items.length - 1];
+            todoList.removeChild(lastItem);
+        } else {
+            alert('No items to remove.');
+        }
+    }
+
+    function saveAsPDF() {
+        const pdfContent = todoList.innerHTML;
+        const pdfWindow = window.open('', '_blank');
+        pdfWindow.document.open();
+        pdfWindow.document.write(`
+            <html>
+            <head>
+                <title>To-Do List PDF</title>
+            </head>
+            <body style="font-family: Arial, sans-serif;">
+                <h1>To-Do List</h1>
+                <div id="todo-list-pdf">
+                    ${pdfContent}
+                </div>
+            </body>
+            </html>
+        `);
+        pdfWindow.document.close();
+        pdfWindow.print();
+    }
+</script>
+
+</body>
+</html>
