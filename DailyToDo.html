@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="Author" content="Kyle Shanahan">
     <title>To-Do List</title>
-    <!-- This program prompts a simple to do list with limited user functionality to write things down. In order to save the list, select the "save" option-->
     <style>
         body {
             background-color: #000;
@@ -58,6 +56,9 @@
             listItem.className = 'todo-item';
             listItem.textContent = task;
             todoList.appendChild(listItem);
+            setTimeout(() => {
+                todoList.removeChild(listItem);
+            }, 24 * 60 * 60 * 1000); // Removes the item after 24 hours
         }
     }
 
@@ -95,3 +96,4 @@
 
 </body>
 </html>
+
